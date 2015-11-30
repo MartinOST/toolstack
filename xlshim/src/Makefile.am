@@ -26,7 +26,7 @@ INCLUDES = @DBUS_CFLAGS@ @DBUS_GLIB_CFLAGS@
 
 sbin_PROGRAMS = xlshim
 
-PROTO_SRCS = main.c
+PROTO_SRCS = main.c xenvm.c
 
 xlshim_SOURCES = ${PROTO_SRCS} #rpcgen/xenvm_server_obj.c
 
