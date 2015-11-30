@@ -31,7 +31,7 @@ PROTO_SRCS = main.c
 xlshim_SOURCES = ${PROTO_SRCS} #rpcgen/xenvm_server_obj.c
 
 # Add @LIBXCXENSTORE_LIBS@ for libxcxenstore
-xlshim_LDADD = @DBUS_LIBS@ @DBUS_GLIB_LIBS@ @LIBXCDBUS_LIBS@
+xlshim_LDADD = @DBUS_LIBS@ @DBUS_GLIB_LIBS@
 
 #BUILT_SOURCES = \
 #        ${DBUS_CLIENT_IDLS:%=rpcgen/%_client.h} \
