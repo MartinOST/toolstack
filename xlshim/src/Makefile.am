@@ -26,24 +26,23 @@ INCLUDES = @DBUS_CFLAGS@ @DBUS_GLIB_CFLAGS@
 
 sbin_PROGRAMS = xlshim
 
-PROTO_SRCS = main.c xenvm.c
+PROTO_SRCS = main.c #xenvm.c
 
-xlshim_SOURCES = ${PROTO_SRCS} #rpcgen/xenvm_server_obj.c
+xlshim_SOURCES = ${PROTO_SRCS} rpcgen/xenvm_server_obj.c
 
 # Add @LIBXCXENSTORE_LIBS@ for libxcxenstore
 xlshim_LDADD = @DBUS_LIBS@ @DBUS_GLIB_LIBS@
 
-#BUILT_SOURCES = \
-#        ${DBUS_CLIENT_IDLS:%=rpcgen/%_client.h} \
-#        ${DBUS_SERVER_IDLS:%=rpcgen/%_server_marshall.h} \
-#        ${DBUS_SERVER_IDLS:%=rpcgen/%_server_obj.c} \
-#        ${DBUS_SERVER_IDLS:%=rpcgen/%_server_obj.h}
+BUILT_SOURCES = \
+        ${DBUS_CLIENT_IDLS:%=rpcgen/%_client.h} \
+        ${DBUS_SERVER_IDLS:%=rpcgen/%_server_marshall.h} \
+        ${DBUS_SERVER_IDLS:%=rpcgen/%_server_obj.c} \
+        ${DBUS_SERVER_IDLS:%=rpcgen/%_server_obj.h}
 
+rpcgen/%_client.h: ${IDLDIR}/%.xml
+	mkdir rpcgen || true
+	${XC_RPCGEN} -c -o rpcgen/ $<
 
-#rpcgen/%_client.h: ${IDLDIR}/%.xml
-#	mkdir rpcgen || true
-#	${XC_RPCGEN} -c -o rpcgen/ $<
-
-#rpcgen/%_server_marshall.h rpcgen/%_server_obj.h rpcgen/%_server_obj.c : ${IDLDIR}/%.xml
-#	mkdir rpcgen || true
-#	${XC_RPCGEN} -s -o rpcgen/ $<
+rpcgen/%_server_marshall.h rpcgen/%_server_obj.h rpcgen/%_server_obj.c : ${IDLDIR}/%.xml
+	mkdir rpcgen || true
+	${XC_RPCGEN} -s -o rpcgen/ $<
